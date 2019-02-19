@@ -1,11 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 import {toggleMessage} from '../actions';
 
-const Toggle = ({messageVisibility, dispatch}) => (
+const Toggle = ({messageVisibility, toggleMessage}) => (
 	<React.Fragment>
-		<button onClick={() => dispatch(toggleMessage())}>Toggle Me</button>
+		<button onClick={toggleMessage}>Toggle Me</button>
 
 		{messageVisibility &&
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero tempore aut totam eos consequatur itaque laborum dolor adipisci earum, alias porro minus nam voluptas minima delectus est? Doloremque, iste pariatur!</p>
@@ -17,4 +18,8 @@ const mapStateToProps = (state) => ({
 	messageVisibility: state.message.messageVisibility
 });
 
-export default connect(mapStateToProps)(Toggle);
+const mapDispatchToProps = dispatch => bindActionCreators({
+	toggleMessage
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Toggle);
