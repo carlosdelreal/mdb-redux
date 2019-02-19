@@ -4,8 +4,10 @@ import {BrowserRouter as Router,
 	Switch
 } from 'react-router-dom';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
-import {compose, composeWithDevTools} from 'redux-devtools-extension';
+import {applyMiddleware, createStore} from 'redux';
+import {composeWithDevTools} from 'redux-devtools-extension';
+import logger from 'redux-logger';
+import thunk from 'redux-thunk';
 
 import './styles/App.css';
 
@@ -16,10 +18,12 @@ import MoviesList from './components/MoviesList';
 import MovieDetail from './components/MovieDetail';
 import Toggle from './components/Toggle';
 
+const middleware = [logger, thunk];
+
 const store = createStore(
 	rootReducer,
 	{},
-	composeWithDevTools()
+	composeWithDevTools(applyMiddleware(...middleware))
 );
 
 const App = () => (

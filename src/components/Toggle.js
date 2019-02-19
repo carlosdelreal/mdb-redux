@@ -2,18 +2,20 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {bindActionCreators} from 'redux';
 
-import {toggleMessage} from '../actions';
+import {toggleMessage, getMovies} from '../actions';
 
-const Toggle = ({messageVisibility, toggleMessage}) => (
-	<React.Fragment>
+const Toggle = ({ messageVisibility, toggleMessage, getMovies }) => (
+	<div>
+		{messageVisibility &&
+			<p>You will be seeing this if redux action is toggled</p>
+		}
 		<button onClick={toggleMessage}>
 			Toggle Me
 		</button>
-
-		{messageVisibility &&
-			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero tempore aut totam eos consequatur itaque laborum dolor adipisci earum, alias porro minus nam voluptas minima delectus est? Doloremque, iste pariatur!</p>
-		}
-	</React.Fragment>
+		<button onClick={getMovies}>
+				Load Movies
+		</button>
+	</div>
 );
 
 const mapStateToProps = (state) => ({
@@ -21,7 +23,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-	toggleMessage
+	toggleMessage,
+	getMovies
 }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Toggle);
