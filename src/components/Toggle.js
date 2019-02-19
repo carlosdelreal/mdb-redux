@@ -1,11 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
+import {toggleMessage} from '../actions';
+
 const Toggle = ({messageVisibility, dispatch}) => (
 	<React.Fragment>
-		<button onClick={() => dispatch({
-			type: 'TOGGLE_MESSAGE'
-		})}>Toggle Me</button>
+		<button onClick={() => dispatch(toggleMessage())}>Toggle Me</button>
 
 		{messageVisibility &&
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero tempore aut totam eos consequatur itaque laborum dolor adipisci earum, alias porro minus nam voluptas minima delectus est? Doloremque, iste pariatur!</p>
