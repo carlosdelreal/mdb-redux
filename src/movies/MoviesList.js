@@ -1,28 +1,18 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import styled from 'styled-components';
-import { MOVIE_BASE_PATH, MOVIE_API } from './api';
 import Movie from './Movie';
+import { getMovies } from './actions';
 
 class MoviesList extends PureComponent {
-	state = {
-		movies: []
-	}
-
-	async componentDidMount() {
-		try {
-			const res = await fetch(`${MOVIE_BASE_PATH}discover/movie?${MOVIE_API}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1`);
-			const movies = await res.json();
-			console.log(movies);
-			this.setState({
-				movies: movies.results
-			})
-		} catch (e) {
-			console.log(e);
-		}
+	componentDidMount() {
+		const { getMovies } = this.props;
+		getMovies();
 	}
 
 	render() {
-		const { movies } = this.state;
+		const { movies } = this.props;
 
 		return (
 			<MovieGrid>
@@ -32,7 +22,15 @@ class MoviesList extends PureComponent {
 	}
 }
 
-export default MoviesList;
+const mapStateToProps = state => ({
+	movies: state.movies.movies,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+	getMovies
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MoviesList);
 
 const MovieGrid = styled.div`
 	display: grid;
