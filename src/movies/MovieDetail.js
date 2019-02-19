@@ -11,7 +11,6 @@ import {
 	BACKDROP_PATH
 } from './api';
 
-
 class MovieDetail extends Component {
 
 	componentDidMount() {
