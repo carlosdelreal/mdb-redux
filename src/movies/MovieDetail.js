@@ -1,35 +1,34 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import styled from  'styled-components';
 import Overdrive from 'react-overdrive';
+import { Poster } from './Movie';
+import { getMovie, resetMovie } from './actions';
+
 import {
-	MOVIE_BASE_PATH,
-	MOVIE_API,
 	POSTER_PATH,
 	BACKDROP_PATH
 } from './api';
 
-import {Poster} from './Movie';
 
 class MovieDetail extends Component {
-	state = {
-		movie: {}
+
+	componentDidMount() {
+		const {
+			match,
+			getMovie
+		} = this.props;
+		getMovie(match.params.id);
 	}
 
-	async componentDidMount() {
-		try {
-			const res = await fetch(`${MOVIE_BASE_PATH}movie/${this.props.match.params.id}?${MOVIE_API}&language=en-US`);
-			const movie = await res.json();
-			console.log(movie);
-			this.setState({
-				movie
-			})
-		} catch (e) {
-			console.log(e);
-		}
+	componentWillUnmount() {
+		const {resetMovie} = this.props;
+		resetMovie();
 	}
 
 	render() {
-		const {movie} = this.state;
+		const {movie} = this.props;
 		const releaseDate = new Date(movie.release_date);
 		const releaseDateFormatted = releaseDate.toLocaleDateString('en-US', {timeZone: 'UTC'});
 
@@ -53,7 +52,17 @@ class MovieDetail extends Component {
 	}
 }
 
-export default MovieDetail;
+const mapStateToProps = state => ({
+	movie: state.movies.movie,
+	movieLoaded: state.movies.movieLoaded,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+	getMovie,
+	resetMovie
+}, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(MovieDetail);
 
 const MovieWrapper = styled.div`
 	position: relative;
@@ -61,7 +70,6 @@ const MovieWrapper = styled.div`
 	background: url(${props => props.backdrop}) no-repeat;
 	background-size: cover;
 `;
-
 
 const MovieInfo = styled.div`
 	background: white;
