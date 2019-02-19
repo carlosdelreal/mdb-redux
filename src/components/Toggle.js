@@ -6,7 +6,9 @@ import {toggleMessage} from '../actions';
 
 const Toggle = ({messageVisibility, toggleMessage}) => (
 	<React.Fragment>
-		<button onClick={toggleMessage}>Toggle Me</button>
+		<button onClick={toggleMessage}>
+			Toggle Me
+		</button>
 
 		{messageVisibility &&
 			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Vero tempore aut totam eos consequatur itaque laborum dolor adipisci earum, alias porro minus nam voluptas minima delectus est? Doloremque, iste pariatur!</p>
