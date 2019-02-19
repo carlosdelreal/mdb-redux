@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import styled from 'styled-components';
-import { MOVIE_BASE_PATH, MOVIE_API } from '../data/api';
+import { MOVIE_BASE_PATH, MOVIE_API } from './api';
 import Movie from './Movie';
 
 class MoviesList extends PureComponent {

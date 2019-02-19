@@ -9,14 +9,14 @@ import {composeWithDevTools} from 'redux-devtools-extension';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
-import './styles/App.css';
+import './css/App.css';
 
 import rootReducer from './rootReducer';
 
-import Header from './components/Header';
-import MoviesList from './components/MoviesList';
-import MovieDetail from './components/MovieDetail';
-import Toggle from './components/Toggle';
+import Header from './movies/Header';
+import MoviesList from './movies/MoviesList';
+import MovieDetail from './movies/MovieDetail';
+import Toggle from './toggle/Toggle';
 
 const middleware = [logger, thunk];
 

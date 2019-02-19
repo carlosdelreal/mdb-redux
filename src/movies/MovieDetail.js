@@ -6,7 +6,7 @@ import {
 	MOVIE_API,
 	POSTER_PATH,
 	BACKDROP_PATH
-} from '../data/api';
+} from './api';
 
 import {Poster} from './Movie';
 
